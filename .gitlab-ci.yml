@@ -5,6 +5,9 @@ services:
 stages:
   - build
 
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+
 build:
   stage: build
   script:
