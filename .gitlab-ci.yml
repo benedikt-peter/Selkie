@@ -11,5 +11,11 @@ variables:
 build:
   stage: build
   script:
-    - docker build --pull -t selkie-build-image utils/ci
-    - docker run --rm -v ./:/workspace:rw selkie-build-image /bin/bash -c "mkdir /workspace/build && cd /workspace/build && cmake ../ && cmake --build"
+    - "docker build --pull -t selkie-build-image utils/ci"
+    - "mkdir build"
+    - "docker run --rm -v ./:/workspace:rw selkie-build-image 
+      /bin/bash -c \"cd /workspace/build && cmake -DCMAKE_BUILD_TYPE=Release ../ && cmake --build .\""
+  artifacts:
+    paths:
+      - build/src/console_client/SelkieConsoleClient
+      - build/src/server/SelkieServer
