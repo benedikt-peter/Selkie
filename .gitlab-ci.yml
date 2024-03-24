@@ -9,4 +9,4 @@ build:
   stage: build
   script:
     - docker build --pull -t selkie-build-image utils/ci
-    - docker run --rm -v ./:/workspace:rw selkie-build-image "mkdir /workspace/build && cd /workspace/build && cmake ../ && cmake --build"
+    - docker run --rm -v ./:/workspace:rw selkie-build-image /bin/bash -c "mkdir /workspace/build && cd /workspace/build && cmake ../ && cmake --build"
