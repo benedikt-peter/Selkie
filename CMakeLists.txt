@@ -23,5 +23,6 @@ add_subdirectory(thirdparty/boost)
 
 # Targets
 
-add_subdirectory(src/console_client)
+add_subdirectory(src/protocol)
 add_subdirectory(src/server)
+add_subdirectory(src/console_client)
