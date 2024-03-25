@@ -9,4 +9,5 @@ RUN apt-get update \
       ninja-build \
       cmake \
       locales-all \
+      libvulkan-dev \
   && apt-get clean

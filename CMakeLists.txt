@@ -12,17 +12,16 @@ set(CMAKE_CXX_STANDARD 20)
 set(ENET_STATIC ON)
 
 # boost
-set(BOOST_INCLUDE_LIBRARIES system)
+set(BOOST_INCLUDE_LIBRARIES program_options)
 
 # Dependencies
 
-add_subdirectory(thirdparty/enet)
-add_subdirectory(thirdparty/entt)
-add_subdirectory(thirdparty/spdlog)
-add_subdirectory(thirdparty/boost)
+add_subdirectory(thirdparty)
 
 # Targets
 
-add_subdirectory(src/protocol)
-add_subdirectory(src/server)
-add_subdirectory(src/console_client)
+add_subdirectory(libs/protocol)
+
+add_subdirectory(apps/server)
+add_subdirectory(apps/gui_server)
+add_subdirectory(apps/console_client)

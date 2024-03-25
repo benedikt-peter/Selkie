@@ -13,3 +13,9 @@
 [submodule "thirdparty/msgpack"]
 	path = thirdparty/msgpack
 	url = https://github.com/msgpack/msgpack-c.git
+[submodule "thirdparty/sdl"]
+	path = thirdparty/sdl
+	url = https://github.com/libsdl-org/SDL.git
+[submodule "thirdparty/imgui"]
+	path = thirdparty/imgui/imgui
+	url = https://github.com/ocornut/imgui.git

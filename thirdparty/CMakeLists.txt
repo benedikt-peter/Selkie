@@ -1,0 +1,6 @@
+add_subdirectory(enet)
+add_subdirectory(entt)
+add_subdirectory(spdlog)
+add_subdirectory(boost)
+add_subdirectory(sdl)
+add_subdirectory(imgui)
