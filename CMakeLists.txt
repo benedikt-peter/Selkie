@@ -6,14 +6,6 @@ project(Selkie)
 
 set(CMAKE_CXX_STANDARD 20)
 
-# Dependency settings
-
-# enet
-set(ENET_STATIC ON)
-
-# boost
-set(BOOST_INCLUDE_LIBRARIES program_options)
-
 # Dependencies
 
 add_subdirectory(thirdparty)
@@ -21,6 +13,7 @@ add_subdirectory(thirdparty)
 # Targets
 
 add_subdirectory(libs/protocol)
+add_subdirectory(libs/server_core)
 
 add_subdirectory(apps/server)
 add_subdirectory(apps/gui_server)
