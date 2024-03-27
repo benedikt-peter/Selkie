@@ -1,8 +1,10 @@
 add_executable(SelkieGUIServer src/main.cpp
     src/gui.cpp
     src/gui.hpp
-    src/main_window.cpp
-    src/main_window.hpp)
+    src/windows/main_window.cpp
+    src/windows/main_window.hpp
+    src/windows/world_inspector.cpp
+    src/windows/world_inspector.hpp)
 
 target_compile_definitions(SelkieGUIServer PUBLIC SDL_MAIN_HANDLED)
 

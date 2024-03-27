@@ -9,5 +9,5 @@ add_library(SelkieServerCore
 
 target_include_directories(SelkieServerCore PUBLIC include)
 
-target_link_libraries(SelkieServerCore EnTT::EnTT)
+target_link_libraries(SelkieServerCore EnTT::EnTT spdlog::spdlog)
 

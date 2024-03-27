@@ -1,5 +1,6 @@
 #pragma once
 
+#include "time.hpp"
 #include "world.hpp"
 
 namespace selkie
@@ -9,7 +10,7 @@ namespace selkie
     public:
       virtual ~ISystem() = default;
 
-      virtual void Update(World& world) = 0;
+      virtual void Update(World& world, Time time) = 0;
   };
 
 } // selkie

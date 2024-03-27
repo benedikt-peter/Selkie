@@ -4,9 +4,9 @@
 
 namespace selkie
 {
-  class TestSystem : ISystem
+  class TestSystem : public ISystem
   {
     public:
-      void Update(World& world) override;
+      void Update(World& world, Time time) override;
   };
 }
