@@ -1,6 +1,9 @@
 #include <memory>
 #include <vector>
 
+#include <spdlog/fmt/bundled/format.h>
+
+#include <selkie/components.hpp>
 #include <selkie/game_loop.hpp>
 #include <selkie/system.hpp>
 #include <selkie/test_system.hpp>
@@ -17,8 +20,12 @@ int main(int, char**)
 
   MainWindow main_window{world};
 
-  const auto entity = world.registry.create();
-  world.registry.emplace<std::string>(entity, "Entity 1");
+  for (int i = 0; i < 10; ++i)
+  {
+    const auto entity = world.registry.create();
+    world.registry.emplace<DebugInfo>(entity, fmt::format("Entity {}", i));
+    world.registry.emplace<Position>(entity, static_cast<float>(i), static_cast<float>(i));
+  }
 
   std::vector<std::unique_ptr<ISystem>> systems{};
   systems.push_back(std::make_unique<TestSystem>());

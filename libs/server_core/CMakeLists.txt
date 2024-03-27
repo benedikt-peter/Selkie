@@ -5,6 +5,7 @@ add_library(SelkieServerCore
     include/selkie/system.hpp
     include/selkie/game_loop.hpp
     src/game_loop.cpp
+    include/selkie/components.hpp
 )
 
 target_include_directories(SelkieServerCore PUBLIC include)
