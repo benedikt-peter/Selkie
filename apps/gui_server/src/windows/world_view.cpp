@@ -14,7 +14,7 @@ namespace selkie
 
   WorldView::WorldView(World& world) :
     m_world{&world},
-    m_scale{15.0f},
+    m_scale{30.0f},
     m_offset{},
     m_view_origin{}
   {
@@ -58,7 +58,7 @@ namespace selkie
 
     auto* draw_list = ImGui::GetWindowDrawList();
 
-    draw_list->AddRectFilled(ToImGuiView(GetWorldMin()), ToImGuiView(GetWorldMax()), IM_COL32(64, 64, 64, 255));
+    draw_list->AddRectFilled(ToImGuiView(GetWorldMin()), ToImGuiView(GetWorldMax()), IM_COL32(196, 196, 196, 255));
 
     for (const auto& entity: m_world->registry.view<DebugInfo, Position>())
     {
@@ -69,7 +69,13 @@ namespace selkie
       const auto scaled_radius = m_scale * 0.5f;
 
       draw_list->AddCircleFilled(center, scaled_radius, IM_COL32(255, 255, 0, 255));
-      draw_list->AddText(center, IM_COL32(255, 255, 255, 255), debug_info.name.c_str());
+
+      if (m_scale >= 25.0f)
+      {
+        const auto text_size = ImGui::CalcTextSize(debug_info.name.c_str());
+        const ImVec2 text_center{center.x - text_size.x / 2.0f, center.y - text_size.y / 2.0f};
+        draw_list->AddText(text_center, IM_COL32(0, 0, 0, 255), debug_info.name.c_str());
+      }
     }
 
     ImGui::PushItemWidth(100.0f);
