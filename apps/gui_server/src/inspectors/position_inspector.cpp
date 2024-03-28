@@ -17,7 +17,8 @@ namespace selkie
 
     if (ImGui::TreeNode("Position"))
     {
-      ImGui::InputFloat2("", position.position.data());
+      ImGui::InputFloat("X", &position.position.x);
+      ImGui::InputFloat("Y", &position.position.y);
 
       ImGui::TreePop();
     }

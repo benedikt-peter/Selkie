@@ -26,17 +26,18 @@ namespace selkie
     CreateInspector<Position, PositionInspector>(m_inspectors, world);
   }
 
-  void WorldInspector::Render()
+  void WorldInspector::Render(float x, float y, float width, float height)
   {
-    const auto* main_viewport = ImGui::GetMainViewport();
-    ImGui::SetNextWindowPos(ImVec2{0.0f, main_viewport->WorkPos.y});
-    ImGui::SetNextWindowSize(ImVec2{300.0f, main_viewport->WorkSize.y});
+    ImGui::SetNextWindowPos(ImVec2{x, y});
+    ImGui::SetNextWindowSize(ImVec2{width, height});
 
     ImGui::Begin("World Inspector", nullptr,
+                 ImGuiWindowFlags_NoBringToFrontOnFocus |
                  ImGuiWindowFlags_NoMove |
                  ImGuiWindowFlags_NoResize |
                  ImGuiWindowFlags_NoCollapse |
-                 ImGuiWindowFlags_NoNav);
+                 ImGuiWindowFlags_NoNav
+    );
 
     const auto& registry = m_world->registry;
 

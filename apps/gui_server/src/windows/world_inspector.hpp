@@ -16,7 +16,7 @@ namespace selkie
     public:
       explicit WorldInspector(World& world);
 
-      void Render();
+      void Render(float x, float y, float width, float height);
 
     private:
       World* m_world;

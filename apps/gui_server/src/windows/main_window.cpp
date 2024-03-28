@@ -6,6 +6,7 @@ namespace selkie
 {
   MainWindow::MainWindow(World& world) :
     m_world_inspector{world},
+    m_world_view{world},
     m_show_demo{false}
   {
   }
@@ -37,7 +38,29 @@ namespace selkie
       ImGui::ShowDemoWindow(&m_show_demo);
     }
 
-    m_world_inspector.Render();
+    const auto* main_viewport = ImGui::GetMainViewport();
+
+    constexpr auto world_inspector_width = 300.0f;
+    m_world_inspector.Render(
+      main_viewport->WorkPos.x,
+      main_viewport->WorkPos.y,
+      world_inspector_width,
+      main_viewport->WorkSize.y
+    );
+
+
+    m_world_view.Render(
+      Vector2
+        {
+          main_viewport->WorkPos.x + world_inspector_width,
+          main_viewport->WorkPos.y
+        },
+      Vector2
+        {
+          main_viewport->WorkSize.x - world_inspector_width,
+          main_viewport->WorkSize.y
+        }
+    );
   }
 }
 

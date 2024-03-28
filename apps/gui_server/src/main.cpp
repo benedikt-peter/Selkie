@@ -16,7 +16,7 @@ using namespace selkie;
 
 int main(int, char**)
 {
-  World world{};
+  World world{.size = Vector2{50.0f, 50.0f}};
 
   MainWindow main_window{world};
 
@@ -24,7 +24,7 @@ int main(int, char**)
   {
     const auto entity = world.registry.create();
     world.registry.emplace<DebugInfo>(entity, fmt::format("Entity {}", i));
-    world.registry.emplace<Position>(entity, static_cast<float>(i), static_cast<float>(i));
+    world.registry.emplace<Position>(entity, Vector2{static_cast<float>(i), static_cast<float>(i)});
   }
 
   std::vector<std::unique_ptr<ISystem>> systems{};
@@ -32,7 +32,7 @@ int main(int, char**)
 
   std::vector<ISystem*> all_systems{};
   all_systems.reserve(systems.size());
-  for (auto& system : systems)
+  for (auto& system: systems)
   {
     all_systems.push_back(system.get());
   }

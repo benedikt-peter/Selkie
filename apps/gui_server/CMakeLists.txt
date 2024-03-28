@@ -8,7 +8,10 @@ add_executable(SelkieGUIServer src/main.cpp
     src/inspectors/position_inspector.cpp
     src/inspectors/position_inspector.hpp
     src/inspectors/component_inspector.hpp
-    src/inspectors/debug_info_inspector.hpp)
+    src/inspectors/debug_info_inspector.hpp
+    src/windows/world_view.cpp
+    src/windows/world_view.hpp
+)
 
 target_compile_definitions(SelkieGUIServer PUBLIC SDL_MAIN_HANDLED)
 

@@ -3,6 +3,8 @@
 #include <array>
 #include <string>
 
+#include "vector2.hpp"
+
 namespace selkie
 {
   struct DebugInfo
@@ -12,6 +14,6 @@ namespace selkie
 
   struct Position
   {
-    std::array<float, 2> position;
+    Vector2 position;
   };
 }
