@@ -17,5 +17,6 @@ build:
       /bin/bash -c \"cd /workspace/build && cmake -DCMAKE_BUILD_TYPE=Release ../ && cmake --build .\""
   artifacts:
     paths:
-      - build/src/console_client/SelkieConsoleClient
-      - build/src/server/SelkieServer
+      - build/apps/console_client/SelkieConsoleClient
+      - build/apps/gui_server/SelkieGuiServer
+      - build/apps/server/SelkieServer
