@@ -1,11 +1,14 @@
 image: docker:latest
+
 services:
-  - docker:dind
+  - name: docker:dind
+    command: ["--tls=false"]
 
 stages:
   - build
 
 variables:
+  DOCKER_TLS_CERTDIR: ""
   GIT_SUBMODULE_STRATEGY: recursive
 
 build:
