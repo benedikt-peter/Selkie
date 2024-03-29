@@ -3,9 +3,6 @@
 # enet
 set(ENET_STATIC ON)
 
-# boost
-set(BOOST_INCLUDE_LIBRARIES program_options)
-
 # sdl
 set(SDL_SUBSYSTEMS
     Atomic
@@ -27,7 +24,6 @@ set(SDL_HIDAPI OFF)
 add_subdirectory(enet)
 add_subdirectory(entt)
 add_subdirectory(spdlog)
-#add_subdirectory(boost)
 add_subdirectory(sdl)
 add_subdirectory(imgui)
 add_subdirectory(glm)

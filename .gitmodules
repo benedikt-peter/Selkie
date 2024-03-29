@@ -7,9 +7,6 @@
 [submodule "thirdparty/enet"]
 	path = thirdparty/enet
 	url = https://github.com/zpl-c/enet.git
-[submodule "thirdparty/boost"]
-	path = thirdparty/boost
-	url = https://github.com/boostorg/boost.git
 [submodule "thirdparty/msgpack"]
 	path = thirdparty/msgpack
 	url = https://github.com/msgpack/msgpack-c.git
