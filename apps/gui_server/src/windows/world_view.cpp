@@ -65,7 +65,7 @@ namespace selkie
 
     draw_list->AddRectFilled(ToImGuiView(GetWorldMin()), ToImGuiView(GetWorldMax()), IM_COL32(196, 196, 196, 255));
 
-    const auto& registry = GetWorld().registry;
+    const auto& registry = GetRegistry();
     for (const auto& view_entry: m_views)
     {
       const auto type = view_entry.first;

@@ -12,7 +12,7 @@ namespace selkie
 
   void MinionView::Render(entt::entity entity)
   {
-    const auto& registry = GetWorld().registry;
+    const auto& registry = GetRegistry();
 
     const auto& minion = registry.get<Minion>(entity);
     const auto& position = registry.get<Position>(entity);
@@ -35,7 +35,7 @@ namespace selkie
 
   bool MinionView::IsValid(entt::entity entity) const
   {
-    return GetWorld().registry.all_of<Minion, DebugInfo, Position>(entity);
+    return GetRegistry().all_of<Minion, DebugInfo, Position>(entity);
   }
 
 } // selkie

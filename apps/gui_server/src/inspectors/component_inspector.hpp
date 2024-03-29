@@ -5,12 +5,30 @@
 namespace selkie
 {
 
-  class IComponentInspector
+  class BaseComponentInspector
   {
     public:
-      virtual ~IComponentInspector() = default;
+      explicit BaseComponentInspector(World& world) :
+        m_world{&world}
+      {}
 
-      virtual void Render(entt::entity entity) const = 0;
+      virtual ~BaseComponentInspector() = default;
+
+      virtual void Render(entt::entity entity) = 0;
+
+    protected:
+      World& GetWorld()
+      {
+        return *m_world;
+      }
+
+      auto& GetRegistry()
+      {
+        return m_world->GetRegistry();
+      }
+
+    private:
+      World* m_world;
   };
 
 } // selkie

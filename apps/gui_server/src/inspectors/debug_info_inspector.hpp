@@ -7,12 +7,14 @@
 namespace selkie
 {
 
-  class DebugInfoInspector : public IComponentInspector
+  class DebugInfoInspector : public BaseComponentInspector
   {
     public:
-      explicit DebugInfoInspector(World&) {}
+      explicit DebugInfoInspector(World& world) :
+        BaseComponentInspector(world)
+      {}
 
-      void Render(entt::entity entity) const override
+      void Render(entt::entity entity) override
       {
       }
   };

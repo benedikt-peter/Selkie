@@ -7,6 +7,7 @@ add_library(SelkieServerCore
     include/selkie/vector2.hpp
     src/minions/waypoint_movement_system.cpp
     include/selkie/minions/waypoint_movement_system.hpp
+    include/selkie/map_data.hpp
 )
 
 target_include_directories(SelkieServerCore PUBLIC include)

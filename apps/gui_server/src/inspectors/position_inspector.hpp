@@ -7,15 +7,12 @@
 namespace selkie
 {
 
-  class PositionInspector : public IComponentInspector
+  class PositionInspector : public BaseComponentInspector
   {
     public:
       explicit PositionInspector(World& world);
 
-      void Render(entt::entity entity) const override;
-
-    private:
-      World* m_world;
+      void Render(entt::entity entity) override;
   };
 
 } // selkie

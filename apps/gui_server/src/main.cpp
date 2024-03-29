@@ -17,16 +17,18 @@ using namespace selkie;
 
 int main(int, char**)
 {
-  World world{.size = Vector2{50.0f, 50.0f}};
+  World world{std::make_unique<MapData>(MapData{.size = Vector2{50.0f, 50.0f}})};
 
   MainWindow main_window{world};
 
+  auto& registry = world.GetRegistry();
+
   for (int i = 0; i < 10; ++i)
   {
-    const auto entity = world.registry.create();
-    world.registry.emplace<DebugInfo>(entity, fmt::format("Minion {}", i + 1));
-    world.registry.emplace<Minion>(entity, 0.5f);
-    world.registry.emplace<Position>(entity, Vector2{static_cast<float>(i), static_cast<float>(i)});
+    const auto entity = registry.create();
+    registry.emplace<DebugInfo>(entity, fmt::format("Minion {}", i + 1));
+    registry.emplace<Minion>(entity, 0.5f);
+    registry.emplace<Position>(entity, Vector2{static_cast<float>(i), static_cast<float>(i)});
   }
 
   std::vector<std::unique_ptr<BaseSystem>> systems{};

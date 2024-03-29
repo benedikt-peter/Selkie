@@ -24,7 +24,7 @@ namespace selkie
 
       auto& GetRegistry()
       {
-        return m_world->registry;
+        return m_world->GetRegistry();
       }
 
     private:

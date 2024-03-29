@@ -34,6 +34,11 @@ namespace selkie
         return *m_world;
       }
 
+      const auto& GetRegistry() const
+      {
+        return m_world->GetRegistry();
+      }
+
       const Vector2& GetViewOrigin() const
       {
         return m_view_origin;
@@ -68,12 +73,12 @@ namespace selkie
 
       Vector2 GetWorldMin() const
       {
-        return -m_world->size / 2.0f;
+        return -m_world->GetMapData().size / 2.0f;
       }
 
       Vector2 GetWorldMax() const
       {
-        return m_world->size / 2.0f;
+        return m_world->GetMapData().size / 2.0f;
       }
 
       bool ShouldRenderText() const

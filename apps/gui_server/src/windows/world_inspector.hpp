@@ -20,7 +20,7 @@ namespace selkie
 
     private:
       World* m_world;
-      std::unordered_map<entt::id_type, std::unique_ptr<IComponentInspector>> m_inspectors;
+      std::unordered_map<entt::id_type, std::unique_ptr<BaseComponentInspector>> m_inspectors;
   };
 }
 

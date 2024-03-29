@@ -7,13 +7,13 @@
 namespace selkie
 {
   PositionInspector::PositionInspector(World& world) :
-    m_world{&world}
+    BaseComponentInspector(world)
   {
   }
 
-  void PositionInspector::Render(entt::entity entity) const
+  void PositionInspector::Render(entt::entity entity)
   {
-    auto& position = m_world->registry.get<Position>(entity);
+    auto& position = GetRegistry().get<Position>(entity);
 
     if (ImGui::TreeNode("Position"))
     {

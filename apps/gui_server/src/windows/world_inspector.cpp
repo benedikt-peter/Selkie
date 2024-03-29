@@ -13,7 +13,7 @@ namespace selkie
 {
   template<typename TComponent, typename TInspector>
   void
-  CreateInspector(std::unordered_map<entt::id_type, std::unique_ptr<IComponentInspector>>& inspectors, World& world)
+  CreateInspector(std::unordered_map<entt::id_type, std::unique_ptr<BaseComponentInspector>>& inspectors, World& world)
   {
     inspectors[entt::type_id<TComponent>().hash()] = std::make_unique<TInspector>(world);
   }
@@ -39,7 +39,7 @@ namespace selkie
                  ImGuiWindowFlags_NoNav
     );
 
-    const auto& registry = m_world->registry;
+    const auto& registry = m_world->GetRegistry();
 
     for (const auto& entity: registry.view<DebugInfo>())
     {
