@@ -5,11 +5,11 @@
 #include "backends/imgui_impl_vulkan.h"
 #include <cstdio>          // printf, fprintf
 #include <cstdlib>         // abort
-#include <SDL.h>
-#include <SDL_vulkan.h>
+#include "SDL2/SDL.h"
+#include "SDL2/SDL_vulkan.h"
 #include <vulkan/vulkan.h>
 
-#include <imgui_font_DroidSans.h>
+#include "imgui_font_DroidSans.h"
 
 #ifdef _DEBUG
 #define APP_USE_VULKAN_DEBUG_REPORT

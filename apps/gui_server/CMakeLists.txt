@@ -1,6 +1,6 @@
 add_executable(SelkieGUIServer src/main.cpp
-    src/gui.cpp
-    src/gui.hpp
+    src/gui/gui.cpp
+    src/gui/gui.hpp
     src/windows/main_window.cpp
     src/windows/main_window.hpp
     src/windows/world_inspector.cpp

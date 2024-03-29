@@ -10,14 +10,42 @@
 #include <selkie/system.hpp>
 
 #include <selkie/world.hpp>
-#include "gui.hpp"
+#include "gui/gui.hpp"
 #include "windows/main_window.hpp"
 
 using namespace selkie;
 
 int main(int, char**)
 {
-  World world{std::make_unique<MapData>(MapData{.size = Vector2{50.0f, 50.0f}})};
+  World world{std::make_unique<MapData>
+                (
+                  MapData
+                    {
+                      .size = Vector2{50.0f, 25.0f},
+                      .lanes =
+                        {
+                          Lane
+                            {
+                              .waypoints =
+                                {
+                                  Vector2{-22.5f, 0.0f},
+                                  Vector2{0.0f, 0.0f},
+                                  Vector2{22.5f, 0.0f}
+                                }
+                            },
+                          Lane
+                            {
+                              .waypoints =
+                                {
+                                  Vector2{22.5f, 0.0f},
+                                  Vector2{0.0f, 0.0f},
+                                  Vector2{-22.5f, 0.0f}
+                                }
+                            }
+                        }
+                    }
+                )
+  };
 
   MainWindow main_window{world};
 
