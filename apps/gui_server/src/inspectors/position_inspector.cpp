@@ -11,7 +11,7 @@ namespace selkie
   {
   }
 
-  void PositionInspector::Render(entt::entity entity)
+  void PositionInspector::Render(entt::entity entity) const
   {
     auto& position = m_world->registry.get<Position>(entity);
 

@@ -16,4 +16,9 @@ namespace selkie
   {
     Vector2 position;
   };
+
+  struct Minion
+  {
+    float radius;
+  };
 }

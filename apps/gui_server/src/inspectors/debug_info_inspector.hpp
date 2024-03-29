@@ -12,7 +12,7 @@ namespace selkie
     public:
       explicit DebugInfoInspector(World&) {}
 
-      void Render(entt::entity entity) override
+      void Render(entt::entity entity) const override
       {
       }
   };

@@ -10,7 +10,7 @@ namespace selkie
     return std::chrono::duration<double>{current_time.time_since_epoch()}.count();;
   }
 
-  GameLoop::GameLoop(World& world, std::span<ISystem*> systems) :
+  GameLoop::GameLoop(World& world, std::span<BaseSystem*> systems) :
     m_world{&world},
     m_systems{std::begin(systems), std::end(systems)},
     m_paused{false},
@@ -33,7 +33,7 @@ namespace selkie
 
       for (const auto system : m_systems)
       {
-        system->Update(*m_world, time);
+        system->Update(time);
       }
 
       ++m_next_tick.number;

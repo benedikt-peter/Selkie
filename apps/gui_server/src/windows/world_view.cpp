@@ -3,22 +3,23 @@
 #include <spdlog/fmt/bundled/format.h>
 #include <imgui.h>
 
-#include "selkie/components.hpp"
+#include <selkie/components.hpp>
+
+#include "../views/minion_view.hpp"
 
 namespace selkie
 {
-  constexpr auto ToIm(Vector2 position)
+  template<typename TComponent, typename TView>
+  void
+  CreateView(std::unordered_map<entt::id_type, std::unique_ptr<BaseComponentView>>& views, World& world)
   {
-    return ImVec2{position.x, position.y};
+    views[entt::type_id<TComponent>().hash()] = std::make_unique<TView>(world);
   }
 
   WorldView::WorldView(World& world) :
-    m_world{&world},
-    m_scale{30.0f},
-    m_offset{},
-    m_view_origin{}
+    BaseView{world}
   {
-
+    CreateView<Minion, MinionView>(m_views, world);
   }
 
   void WorldView::Render(Vector2 position, Vector2 size)
@@ -37,74 +38,61 @@ namespace selkie
 
     const auto& io = ImGui::GetIO();
 
+    auto scale = GetScale();
+    auto offset = GetOffset();
     if (ImGui::IsWindowHovered())
     {
       const auto mouse_wheel = io.MouseWheel;
-      m_scale = std::clamp(m_scale * std::pow(2.0f, mouse_wheel), 1.0f, 100.0f);
+      scale = std::clamp(scale * std::pow(2.0f, mouse_wheel), 1.0f, 100.0f);
 
       if (ImGui::IsMouseDragging(0))
       {
         const auto mouse_drag = io.MouseDelta;
-        m_offset += Vector2{mouse_drag.x, mouse_drag.y} / m_scale;
+        offset += Vector2{mouse_drag.x, mouse_drag.y} / scale;
 
-        m_offset = Vector2{
-          std::clamp(m_offset.x, GetWorldMin().x, GetWorldMax().x),
-          std::clamp(m_offset.y, GetWorldMin().y, GetWorldMax().y)
+        offset = Vector2{
+          std::clamp(offset.x, GetWorldMin().x, GetWorldMax().x),
+          std::clamp(offset.y, GetWorldMin().y, GetWorldMax().y)
         };
       }
     }
 
-    m_view_origin = position + size / 2.0f;
+    const auto origin = position + size / 2.0f;
+
+    UpdateView(origin, scale, offset);
 
     auto* draw_list = ImGui::GetWindowDrawList();
 
     draw_list->AddRectFilled(ToImGuiView(GetWorldMin()), ToImGuiView(GetWorldMax()), IM_COL32(196, 196, 196, 255));
 
-    for (const auto& entity: m_world->registry.view<DebugInfo, Position>())
+    const auto& registry = GetWorld().registry;
+    for (const auto& view_entry: m_views)
     {
-      const auto& debug_info = m_world->registry.get<DebugInfo>(entity);
-      const auto& current_position = m_world->registry.get<Position>(entity);
+      const auto type = view_entry.first;
+      auto& view = *view_entry.second;
 
-      const auto center = ToImGuiView(current_position.position);
-      const auto scaled_radius = m_scale * 0.5f;
+      view.UpdateView(origin, scale, offset);
 
-      draw_list->AddCircleFilled(center, scaled_radius, IM_COL32(255, 255, 0, 255));
-
-      if (m_scale >= 25.0f)
+      const auto storage = registry.storage(type);
+      for (const auto entity: *storage)
       {
-        const auto text_size = ImGui::CalcTextSize(debug_info.name.c_str());
-        const ImVec2 text_center{center.x - text_size.x / 2.0f, center.y - text_size.y / 2.0f};
-        draw_list->AddText(text_center, IM_COL32(0, 0, 0, 255), debug_info.name.c_str());
+        if (!view.IsValid(entity))
+        {
+          continue;
+        }
+
+        view.Render(entity);
       }
     }
 
     ImGui::PushItemWidth(100.0f);
-    ImGui::TextUnformatted(fmt::format("Offset ({},{})", m_offset.x, m_offset.y).c_str());
-    ImGui::SliderFloat("Scale", &m_scale, 1.0f, 100.0f);
+    ImGui::TextUnformatted(fmt::format("Offset ({},{})", offset.x, offset.y).c_str());
+    if (ImGui::SliderFloat("Scale", &scale, 1.0f, 100.0f))
+    {
+      UpdateView(origin, scale, offset);
+    }
     ImGui::PopItemWidth();
 
     ImGui::End();
-  }
-
-  Vector2 WorldView::ToView(Vector2 position) const
-  {
-    const auto scaled_offset = m_scale * m_offset;
-    const auto scaled_position = m_scale * position;
-    return m_view_origin + scaled_offset + scaled_position;
-  }
-
-  ImVec2 WorldView::ToImGuiView(Vector2 position) const
-  {
-    return ToIm(ToView(position));
-  }
-
-  Vector2 WorldView::GetWorldMin() const
-  {
-    return -m_world->size / 2.0f;
-  }
-
-  Vector2 WorldView::GetWorldMax() const
-  {
-    return m_world->size / 2.0f;
   }
 } // selkie

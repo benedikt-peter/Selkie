@@ -12,7 +12,7 @@ namespace selkie
   struct Time
   {
     Tick tick;
-    double delta_time;
+    float delta_time;
     double total_time;
   };
 }

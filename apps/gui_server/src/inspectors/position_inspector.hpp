@@ -12,7 +12,7 @@ namespace selkie
     public:
       explicit PositionInspector(World& world);
 
-      void Render(entt::entity entity) override;
+      void Render(entt::entity entity) const override;
 
     private:
       World* m_world;

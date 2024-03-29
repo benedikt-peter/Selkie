@@ -5,12 +5,30 @@
 
 namespace selkie
 {
-  class ISystem
+  class BaseSystem
   {
     public:
-      virtual ~ISystem() = default;
+      explicit BaseSystem(World& world) :
+        m_world{&world}
+      {}
 
-      virtual void Update(World& world, Time time) = 0;
+      virtual ~BaseSystem() = default;
+
+      virtual void Update(Time time) = 0;
+
+    protected:
+      auto& GetWorld()
+      {
+        return *m_world;
+      }
+
+      auto& GetRegistry()
+      {
+        return m_world->registry;
+      }
+
+    private:
+      World* m_world;
   };
 
 } // selkie

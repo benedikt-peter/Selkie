@@ -14,7 +14,7 @@ namespace selkie
   class GameLoop
   {
     public:
-      GameLoop(World& world, std::span<ISystem*> systems);
+      GameLoop(World& world, std::span<BaseSystem*> systems);
 
       void WakeUp();
 
@@ -24,7 +24,7 @@ namespace selkie
 
     private:
       World* m_world;
-      std::vector<ISystem*> m_systems;
+      std::vector<BaseSystem*> m_systems;
 
       bool m_paused;
       Tick m_next_tick;

@@ -13,6 +13,7 @@ add_executable(SelkieGUIServer src/main.cpp
     src/windows/world_view.hpp
     src/views/minion_view.cpp
     src/views/minion_view.hpp
+    src/views/view.hpp
 )
 
 target_compile_definitions(SelkieGUIServer PUBLIC SDL_MAIN_HANDLED)

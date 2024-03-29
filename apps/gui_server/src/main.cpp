@@ -3,12 +3,13 @@
 
 #include <spdlog/fmt/bundled/format.h>
 
+#include <selkie/minions/waypoint_movement_system.hpp>
+
 #include <selkie/components.hpp>
 #include <selkie/game_loop.hpp>
 #include <selkie/system.hpp>
-#include <selkie/test_system.hpp>
-#include <selkie/world.hpp>
 
+#include <selkie/world.hpp>
 #include "gui.hpp"
 #include "windows/main_window.hpp"
 
@@ -23,14 +24,15 @@ int main(int, char**)
   for (int i = 0; i < 10; ++i)
   {
     const auto entity = world.registry.create();
-    world.registry.emplace<DebugInfo>(entity, fmt::format("Entity {}", i));
+    world.registry.emplace<DebugInfo>(entity, fmt::format("Minion {}", i + 1));
+    world.registry.emplace<Minion>(entity, 0.5f);
     world.registry.emplace<Position>(entity, Vector2{static_cast<float>(i), static_cast<float>(i)});
   }
 
-  std::vector<std::unique_ptr<ISystem>> systems{};
-  systems.push_back(std::make_unique<TestSystem>());
+  std::vector<std::unique_ptr<BaseSystem>> systems{};
+  systems.push_back(std::make_unique<WaypointMovementSystem>(world));
 
-  std::vector<ISystem*> all_systems{};
+  std::vector<BaseSystem*> all_systems{};
   all_systems.reserve(systems.size());
   for (auto& system: systems)
   {

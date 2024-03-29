@@ -10,7 +10,7 @@ namespace selkie
     public:
       virtual ~IComponentInspector() = default;
 
-      virtual void Render(entt::entity entity) = 0;
+      virtual void Render(entt::entity entity) const = 0;
   };
 
 } // selkie
