@@ -21,5 +21,5 @@ build:
   artifacts:
     paths:
       - build/apps/console_client/SelkieConsoleClient
-      - build/apps/gui_server/SelkieGuiServer
+      - build/apps/gui_server/SelkieGUIServer
       - build/apps/server/SelkieServer
