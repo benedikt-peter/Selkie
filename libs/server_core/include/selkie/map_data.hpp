@@ -6,7 +6,7 @@
 
 namespace selkie
 {
-  using LaneId = std::uint32_t;
+  using LaneId = std::int32_t;
 
   enum class TeamId
   {
@@ -27,7 +27,7 @@ namespace selkie
     return "";
   }
 
-  using WaypointId = std::uint32_t;
+  using WaypointId = std::int32_t;
 
   struct LaneData
   {
@@ -51,7 +51,7 @@ namespace selkie
     std::string name;
   };
 
-  using MinionSpawnerId = std::uint8_t;
+  using MinionSpawnerId = std::int32_t;
 
   struct MinionSpawnerData
   {

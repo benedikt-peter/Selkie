@@ -20,6 +20,8 @@ namespace selkie
     BaseView{world}
   {
     CreateView<Minion, MinionView>(m_views, world);
+
+    UpdateView(Vector2{}, 20.0f, Vector2{});
   }
 
   void WorldView::Render(Vector2 position, Vector2 size)

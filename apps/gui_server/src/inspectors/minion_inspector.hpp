@@ -28,7 +28,6 @@ namespace selkie
 
           static const char* items[] = {"Blue", "Red"};
           ImGui::Combo("Team", reinterpret_cast<int*>(&minion.team_id), items, IM_ARRAYSIZE(items));
-//          ImGui::Comb
 
           ImGui::TreePop();
         }
