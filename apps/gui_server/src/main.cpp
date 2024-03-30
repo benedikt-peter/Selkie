@@ -1,7 +1,7 @@
 #include <memory>
 #include <vector>
 
-#include "selkie/minions/waypoint_movement_system.hpp"
+#include "selkie/minions/lane_movement_system.hpp"
 #include "selkie/minions/minion_spawner_system.hpp"
 #include "selkie/game_loop.hpp"
 #include "selkie/system.hpp"
@@ -21,7 +21,7 @@ int main(int, char**)
 
   std::vector<std::unique_ptr<BaseSystem>> systems{};
   systems.push_back(std::make_unique<MinionSpawnerSystem>(world));
-  systems.push_back(std::make_unique<WaypointMovementSystem>(world));
+  systems.push_back(std::make_unique<LaneMovementSystem>(world));
 
   std::vector<BaseSystem*> all_systems{};
   all_systems.reserve(systems.size());

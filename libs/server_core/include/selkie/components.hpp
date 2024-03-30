@@ -19,6 +19,14 @@ namespace selkie
   struct Minion
   {
     float radius;
+    TeamId team_id;
+  };
+
+  struct FollowLane
+  {
+    LaneId lane_id;
+    TeamId team_id;
+    WaypointId next_waypoint_id;
   };
 
   struct MinionSpawner

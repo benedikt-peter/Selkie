@@ -5,10 +5,10 @@
 namespace selkie
 {
 
-  class WaypointMovementSystem : public BaseSystem
+  class LaneMovementSystem : public BaseSystem
   {
     public:
-      explicit WaypointMovementSystem(World& world);
+      explicit LaneMovementSystem(World& world);
 
       void Update(Time time) override;
   };

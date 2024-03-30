@@ -23,7 +23,8 @@ namespace selkie
 
     auto* draw_list = ImGui::GetWindowDrawList();
 
-    draw_list->AddCircleFilled(center, scaled_radius, IM_COL32(255, 255, 0, 255));
+    const auto color = minion.team_id == TeamId::Blue ? IM_COL32(0, 0, 255, 255) : IM_COL32(255, 0, 0, 255);
+    draw_list->AddCircleFilled(center, scaled_radius, color);
 
     if (ShouldRenderText())
     {

@@ -5,7 +5,6 @@ add_executable(SelkieGUIServer src/main.cpp
     src/windows/main_window.hpp
     src/windows/world_inspector.cpp
     src/windows/world_inspector.hpp
-    src/inspectors/position_inspector.cpp
     src/inspectors/position_inspector.hpp
     src/inspectors/component_inspector.hpp
     src/inspectors/debug_info_inspector.hpp

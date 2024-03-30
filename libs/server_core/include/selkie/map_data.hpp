@@ -6,9 +6,9 @@
 
 namespace selkie
 {
-  using LaneId = std::uint8_t;
+  using LaneId = std::uint32_t;
 
-  enum class TeamId : std::uint8_t
+  enum class TeamId
   {
     Blue,
     Red
@@ -22,8 +22,12 @@ namespace selkie
         return "Blue";
       case TeamId::Red:
         return "Red";
-    };
+    }
+
+    return "";
   }
+
+  using WaypointId = std::uint32_t;
 
   struct LaneData
   {

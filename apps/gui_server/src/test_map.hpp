@@ -37,7 +37,7 @@ namespace selkie
             .minion_spawner_id = 0,
             .team_id = TeamId::Blue,
             .lane_id = lanes[0].lane_id,
-            .position = lanes[0].waypoints[0],
+            .position = Vector2{-25.0f, 0.0f},
             .spawn_delay = 10.0f,
             .minion_types = minion_wave
           },
@@ -46,7 +46,7 @@ namespace selkie
             .minion_spawner_id = 1,
             .team_id = TeamId::Red,
             .lane_id = lanes[0].lane_id,
-            .position = lanes[0].waypoints[lanes[0].waypoints.size() - 1],
+            .position = Vector2{25.0f, 0.0f},
             .spawn_delay = 10.0f,
             .minion_types = minion_wave
           }
