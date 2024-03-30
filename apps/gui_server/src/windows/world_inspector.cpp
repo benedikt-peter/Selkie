@@ -4,7 +4,7 @@
 
 #include <spdlog/fmt/bundled/format.h>
 
-#include <selkie/components.hpp>
+#include "selkie/components.hpp"
 
 #include "../inspectors/position_inspector.hpp"
 #include "../inspectors/debug_info_inspector.hpp"
@@ -41,12 +41,12 @@ namespace selkie
 
     const auto& registry = m_world->GetRegistry();
 
-    for (const auto& entity: registry.view<DebugInfo>())
+    for (const auto& entity : registry.view<DebugInfo>())
     {
       const auto& debug_info = registry.get<DebugInfo>(entity);
-      if (ImGui::TreeNode(debug_info.name.c_str()))
+      if (ImGui::TreeNode(fmt::format("{}##{}", debug_info.name, static_cast<std::uint32_t>(entity)).c_str()))
       {
-        for (auto&& curr: registry.storage())
+        for (auto&& curr : registry.storage())
         {
           auto& storage = curr.second;
           if (storage.contains(entity))

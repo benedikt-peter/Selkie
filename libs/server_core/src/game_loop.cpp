@@ -19,6 +19,14 @@ namespace selkie
   {
   }
 
+  void GameLoop::Start()
+  {
+    for (const auto system : m_systems)
+    {
+      system->Start();
+    }
+  }
+
   void GameLoop::WakeUp()
   {
     if (m_paused)
@@ -49,6 +57,14 @@ namespace selkie
   void GameLoop::Unpause()
   {
     m_paused = false;
+  }
+
+  void GameLoop::Shutdown()
+  {
+    for (const auto system : m_systems)
+    {
+      system->Shutdown();
+    }
   }
 
   double GameLoop::GetTotalTime() const

@@ -14,7 +14,15 @@ namespace selkie
 
       virtual ~BaseSystem() = default;
 
+      virtual void Start()
+      {
+      }
+
       virtual void Update(Time time) = 0;
+
+      virtual void Shutdown()
+      {
+      }
 
     protected:
       auto& GetWorld()

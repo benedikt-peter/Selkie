@@ -1,6 +1,6 @@
 #pragma once
 
-#include <selkie/world.hpp>
+#include "selkie/world.hpp"
 
 #include "component_inspector.hpp"
 

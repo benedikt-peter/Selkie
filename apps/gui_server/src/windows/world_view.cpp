@@ -3,7 +3,7 @@
 #include <spdlog/fmt/bundled/format.h>
 #include <imgui.h>
 
-#include <selkie/components.hpp>
+#include "selkie/components.hpp"
 
 #include "../views/minion_view.hpp"
 

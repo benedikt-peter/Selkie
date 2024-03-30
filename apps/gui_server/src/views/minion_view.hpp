@@ -2,8 +2,8 @@
 
 #include <span>
 
-#include <selkie/components.hpp>
-#include <selkie/world.hpp>
+#include "selkie/components.hpp"
+#include "selkie/world.hpp"
 
 #include "view.hpp"
 

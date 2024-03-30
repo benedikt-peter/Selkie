@@ -16,11 +16,15 @@ namespace selkie
     public:
       GameLoop(World& world, std::span<BaseSystem*> systems);
 
+      void Start();
+
       void WakeUp();
 
       void Pause();
 
       void Unpause();
+
+      void Shutdown();
 
     private:
       World* m_world;

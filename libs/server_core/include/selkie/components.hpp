@@ -1,9 +1,8 @@
 #pragma once
 
-#include <array>
 #include <string>
 
-#include "vector2.hpp"
+#include "map_data.hpp"
 
 namespace selkie
 {
@@ -20,5 +19,11 @@ namespace selkie
   struct Minion
   {
     float radius;
+  };
+
+  struct MinionSpawner
+  {
+    MinionSpawnerId minion_spawner_id;
+    double next_spawn_time;
   };
 }

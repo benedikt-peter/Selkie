@@ -2,7 +2,7 @@
 
 #include <imgui.h>
 
-#include <selkie/components.hpp>
+#include "selkie/components.hpp"
 
 namespace selkie
 {

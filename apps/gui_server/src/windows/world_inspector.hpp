@@ -5,7 +5,7 @@
 
 #include <entt/entt.hpp>
 
-#include <selkie/world.hpp>
+#include "selkie/world.hpp"
 
 #include "../inspectors/component_inspector.hpp"
 

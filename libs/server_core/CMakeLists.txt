@@ -8,6 +8,8 @@ add_library(SelkieServerCore
     src/minions/waypoint_movement_system.cpp
     include/selkie/minions/waypoint_movement_system.hpp
     include/selkie/map_data.hpp
+    include/selkie/minions/minion_spawner_system.cpp
+    include/selkie/minions/minion_spawner_system.hpp
 )
 
 target_include_directories(SelkieServerCore PUBLIC include)
