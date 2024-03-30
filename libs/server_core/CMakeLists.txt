@@ -14,5 +14,5 @@ add_library(SelkieServerCore
 
 target_include_directories(SelkieServerCore PUBLIC include)
 
-target_link_libraries(SelkieServerCore EnTT::EnTT spdlog::spdlog glm::glm-header-only)
+target_link_libraries(SelkieServerCore Boost::geometry EnTT::EnTT spdlog::spdlog glm::glm-header-only)
 

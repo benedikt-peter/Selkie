@@ -1,5 +1,8 @@
 # Dependency settings
 
+# boost
+set(BOOST_INCLUDE_LIBRARIES geometry)
+
 # enet
 set(ENET_STATIC ON)
 
@@ -21,9 +24,12 @@ set(SDL_OPENGLES OFF)
 set(SDL_DIRECTX OFF)
 set(SDL_HIDAPI OFF)
 
-add_subdirectory(enet)
-add_subdirectory(entt)
-add_subdirectory(spdlog)
-add_subdirectory(sdl)
-add_subdirectory(imgui)
-add_subdirectory(glm)
+# dependencies
+
+add_subdirectory(boost EXCLUDE_FROM_ALL)
+add_subdirectory(enet EXCLUDE_FROM_ALL)
+add_subdirectory(entt EXCLUDE_FROM_ALL)
+add_subdirectory(spdlog EXCLUDE_FROM_ALL)
+add_subdirectory(sdl EXCLUDE_FROM_ALL)
+add_subdirectory(imgui EXCLUDE_FROM_ALL)
+add_subdirectory(glm EXCLUDE_FROM_ALL)
