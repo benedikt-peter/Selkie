@@ -5,7 +5,7 @@
 #include <entt/entt.hpp>
 
 #include "map_data.hpp"
-#include "vector2.hpp"
+#include "selkie/math/vector2.hpp"
 
 namespace selkie
 {
