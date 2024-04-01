@@ -24,10 +24,10 @@ namespace selkie
 
         if (ImGui::TreeNode("Minion"))
         {
-          ImGui::InputFloat("Radius", &minion.radius);
+          ImGui::TextUnformatted(fmt::format("Type: {}", minion.minion_type.name).c_str());
 
-          static const char* items[] = {"Blue", "Red"};
-          ImGui::Combo("Team", reinterpret_cast<int*>(&minion.team_id), items, IM_ARRAYSIZE(items));
+//          static const char* items[] = {"Blue", "Red"};
+//          ImGui::Combo("Team", reinterpret_cast<int*>(&minion.team_id), items, IM_ARRAYSIZE(items));
 
           ImGui::TreePop();
         }

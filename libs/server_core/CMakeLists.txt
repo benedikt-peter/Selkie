@@ -6,11 +6,18 @@ add_library(SelkieServerCore
     include/selkie/components.hpp
     include/selkie/math/vector2.hpp
     src/minions/lane_movement_system.cpp
-    include/selkie/minions/lane_movement_system.hpp
+    src/minions/lane_movement_system.hpp
     include/selkie/map_data.hpp
     src/minions/minion_spawner_system.cpp
-    include/selkie/minions/minion_spawner_system.hpp
-    include/selkie/math/r_tree.hpp
+    src/minions/minion_spawner_system.hpp
+    src/math/r_tree.hpp
+    src/combat/search_tree_update_system.cpp
+    src/combat/search_tree_update_system.hpp
+    include/selkie/systems.hpp
+    src/systems.cpp
+    src/combat/search_trees.hpp
+    src/minions/targeting_system.cpp
+    src/minions/targeting_system.hpp
 )
 
 target_include_directories(SelkieServerCore PUBLIC include)

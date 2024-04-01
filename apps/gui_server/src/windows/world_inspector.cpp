@@ -9,7 +9,10 @@
 #include "../inspectors/position_inspector.hpp"
 #include "../inspectors/debug_info_inspector.hpp"
 #include "../inspectors/minion_inspector.hpp"
+#include "../inspectors/team_inspector.hpp"
 #include "../inspectors/minion_spawner_inspector.hpp"
+#include "../inspectors/hitbox_inspector.hpp"
+#include "../inspectors/targeting_inspector.hpp"
 
 namespace selkie
 {
@@ -28,6 +31,9 @@ namespace selkie
     CreateInspector<Position, PositionInspector>(m_inspectors, world);
     CreateInspector<Minion, MinionInspector>(m_inspectors, world);
     CreateInspector<MinionSpawner, MinionSpawnerInspector>(m_inspectors, world);
+    CreateInspector<Team, TeamInspector>(m_inspectors, world);
+    CreateInspector<Hitbox, HitboxInspector>(m_inspectors, world);
+    CreateInspector<Targeting, TargetingInspector>(m_inspectors, world);
   }
 
   void WorldInspector::Render(float x, float y, float width, float height)

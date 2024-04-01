@@ -3,7 +3,7 @@
 #include <span>
 #include <vector>
 
-#include "system.hpp"
+#include "systems.hpp"
 #include "time.hpp"
 #include "world.hpp"
 
@@ -14,7 +14,7 @@ namespace selkie
   class GameLoop
   {
     public:
-      GameLoop(World& world, std::span<BaseSystem*> systems);
+      GameLoop(World& world, Systems& systems);
 
       void Start();
 
@@ -28,7 +28,7 @@ namespace selkie
 
     private:
       World* m_world;
-      std::vector<BaseSystem*> m_systems;
+      Systems* m_systems;
 
       bool m_paused;
       Tick m_next_tick;

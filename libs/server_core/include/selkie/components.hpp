@@ -2,6 +2,8 @@
 
 #include <string>
 
+#include <entt/entity/entity.hpp>
+
 #include "map_data.hpp"
 
 namespace selkie
@@ -16,10 +18,25 @@ namespace selkie
     Vector2 position;
   };
 
-  struct Minion
+  struct Hitbox
   {
     float radius;
+  };
+
+  struct Team
+  {
     TeamId team_id;
+  };
+
+  struct Minion
+  {
+    MinionType minion_type{};
+  };
+
+  struct Targeting
+  {
+    float max_range;
+    entt::entity target_entity;
   };
 
   struct FollowLane

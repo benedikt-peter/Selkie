@@ -1,4 +1,4 @@
-#include "selkie/minions/minion_spawner_system.hpp"
+#include "minion_spawner_system.hpp"
 
 #include "spdlog/fmt/bundled/format.h"
 
@@ -35,11 +35,14 @@ namespace selkie
       for (const auto& minion_type : data.minion_types)
       {
         const auto entity = GetRegistry().create();
-        GetRegistry().emplace<Minion>(entity, 0.5f, data.team_id);
+        GetRegistry().emplace<Minion>(entity, minion_type.name);
+        GetRegistry().emplace<Hitbox>(entity, 0.5f);
+        GetRegistry().emplace<Team>(entity, data.team_id);
         GetRegistry().emplace<DebugInfo>(entity, fmt::format("{} Lane {} {}",
                                                              minion_type.name, data.lane_id,
                                                              GetTeamName(data.team_id)));
         GetRegistry().emplace<Position>(entity, data.position);
+        GetRegistry().emplace<Targeting>(entity, 5.0f);
       }
     }
   }

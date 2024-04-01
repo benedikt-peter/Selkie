@@ -10,9 +10,9 @@ namespace selkie
     return std::chrono::duration<double>{current_time.time_since_epoch()}.count();;
   }
 
-  GameLoop::GameLoop(World& world, std::span<BaseSystem*> systems) :
+  GameLoop::GameLoop(World& world, Systems& systems) :
     m_world{&world},
-    m_systems{std::begin(systems), std::end(systems)},
+    m_systems{&systems},
     m_paused{false},
     m_next_tick{0u},
     m_start_time{GetCurrentTime()}
@@ -21,10 +21,8 @@ namespace selkie
 
   void GameLoop::Start()
   {
-    for (const auto system : m_systems)
-    {
-      system->Start();
-    }
+    m_systems->ForEach([](auto& system)
+                       { system.Start(); });
   }
 
   void GameLoop::WakeUp()
@@ -39,10 +37,8 @@ namespace selkie
     {
       Time time{m_next_tick, TargetFrameRate, GetTotalTime()};
 
-      for (const auto system : m_systems)
-      {
-        system->Update(time);
-      }
+      m_systems->ForEach([time](auto& system)
+                         { system.Update(time); });
 
       ++m_next_tick.number;
       total_time = GetTotalTime();
@@ -61,10 +57,8 @@ namespace selkie
 
   void GameLoop::Shutdown()
   {
-    for (const auto system : m_systems)
-    {
-      system->Shutdown();
-    }
+    m_systems->ForEach([](auto& system)
+                       { system.Shutdown(); });
   }
 
   double GameLoop::GetTotalTime() const

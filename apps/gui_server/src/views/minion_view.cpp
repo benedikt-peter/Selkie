@@ -14,16 +14,17 @@ namespace selkie
   {
     const auto& registry = GetRegistry();
 
-    const auto& minion = registry.get<Minion>(entity);
+    const auto& team = registry.get<Team>(entity);
+    const auto& hitbox = registry.get<Hitbox>(entity);
     const auto& position = registry.get<Position>(entity);
     const auto& debug_info = registry.get<DebugInfo>(entity);
 
     const auto center = ToImGuiView(position.position);
-    const auto scaled_radius = GetScale() * minion.radius;
+    const auto scaled_radius = GetScale() * hitbox.radius;
 
     auto* draw_list = ImGui::GetWindowDrawList();
 
-    const auto color = minion.team_id == TeamId::Blue ? IM_COL32(0, 0, 255, 255) : IM_COL32(255, 0, 0, 255);
+    const auto color = team.team_id == TeamId::Blue ? IM_COL32(0, 0, 255, 255) : IM_COL32(255, 0, 0, 255);
     draw_list->AddCircleFilled(center, scaled_radius, color);
 
     if (ShouldRenderText())
@@ -36,7 +37,7 @@ namespace selkie
 
   bool MinionView::IsValid(entt::entity entity) const
   {
-    return GetRegistry().all_of<Minion, DebugInfo, Position>(entity);
+    return GetRegistry().all_of<Minion, Team, Hitbox, DebugInfo, Position>(entity);
   }
 
 } // selkie
