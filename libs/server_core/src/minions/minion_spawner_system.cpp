@@ -42,7 +42,7 @@ namespace selkie
                                                              minion_type.name, data.lane_id,
                                                              GetTeamName(data.team_id)));
         GetRegistry().emplace<Position>(entity, data.position);
-        GetRegistry().emplace<Targeting>(entity, 5.0f);
+        GetRegistry().emplace<Targeting>(entity, 5.0f, entt::null_t{});
       }
     }
   }

@@ -11,6 +11,9 @@ namespace selkie
 
   void SearchTreeUpdateSystem::Update(Time time)
   {
+    m_team_blue_buffer.clear();
+    m_team_red_buffer.clear();
+
     const auto view = GetRegistry().view<Position, Hitbox, Team>();
 
     for (const auto entity : view)
