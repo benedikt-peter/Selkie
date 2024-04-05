@@ -24,6 +24,12 @@ set(SDL_OPENGLES OFF)
 set(SDL_DIRECTX OFF)
 set(SDL_HIDAPI OFF)
 
+# recastnavigation
+
+set(RECASTNAVIGATION_DEMO OFF)
+set(RECASTNAVIGATION_TESTS OFF)
+set(RECASTNAVIGATION_EXAMPLES OFF)
+
 # dependencies
 
 add_subdirectory(boost EXCLUDE_FROM_ALL)
@@ -33,3 +39,4 @@ add_subdirectory(spdlog EXCLUDE_FROM_ALL)
 add_subdirectory(sdl EXCLUDE_FROM_ALL)
 add_subdirectory(imgui EXCLUDE_FROM_ALL)
 add_subdirectory(glm EXCLUDE_FROM_ALL)
+add_subdirectory(recastnavigation EXCLUDE_FROM_ALL)
