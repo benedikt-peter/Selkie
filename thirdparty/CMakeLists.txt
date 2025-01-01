@@ -32,12 +32,17 @@ set(RECASTNAVIGATION_DEMO OFF)
 set(RECASTNAVIGATION_TESTS OFF)
 set(RECASTNAVIGATION_EXAMPLES OFF)
 
+# msgpack
+
+set(MSGPACK_USE_BOOST OFF)
+
 # dependencies
 
 add_subdirectory(boost EXCLUDE_FROM_ALL)
 add_subdirectory(enet EXCLUDE_FROM_ALL)
 add_subdirectory(entt EXCLUDE_FROM_ALL)
 add_subdirectory(spdlog EXCLUDE_FROM_ALL)
+add_subdirectory(msgpack EXCLUDE_FROM_ALL)
 add_subdirectory(sdl EXCLUDE_FROM_ALL)
 add_subdirectory(imgui EXCLUDE_FROM_ALL)
 add_subdirectory(glm EXCLUDE_FROM_ALL)
