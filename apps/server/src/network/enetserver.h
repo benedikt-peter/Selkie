@@ -1,11 +1,10 @@
 #pragma once
 
-#include <cstdint>
 #include <memory>
 
 #include "eventsbuffer.h"
 
-class ENetHost;
+struct _ENetHost; // NOLINT(*-reserved-identifier)
 
 namespace selkie {
   constexpr std::size_t MaxClients = 10;
@@ -27,6 +26,6 @@ namespace selkie {
     void processEvents(EventsBuffer& collector);
 
   private:
-    std::unique_ptr<ENetHost, void (*)(ENetHost *)> m_server;
+    std::unique_ptr<_ENetHost, void (*)(_ENetHost *)> m_server;
   };
 }

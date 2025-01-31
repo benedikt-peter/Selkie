@@ -1,5 +1,6 @@
 #include "enetserver.h"
 
+#include <boost/core/noncopyable.hpp>
 #include <enet.h>
 #include <spdlog/spdlog.h>
 
@@ -64,6 +65,8 @@ namespace selkie {
           const auto data = std::span<const std::byte>{reinterpret_cast<std::byte*>(event.packet->data), event.packet->dataLength};
           const auto messageType = static_cast<MessageType>(data[0]);
           const auto payload = data.subspan(1);
+
+          collector.pushMessage(messageType, data);
 
           /* Clean up the packet now that we're done using it. */
           enet_packet_destroy(event.packet);

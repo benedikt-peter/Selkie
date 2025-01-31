@@ -7,6 +7,6 @@ add_executable(SelkieServer src/main.cpp
         src/network/events.h
         src/network/message.h)
 
-target_link_libraries(SelkieServer PRIVATE EnTT::EnTT spdlog::spdlog enet_static msgpack-cxx) # boost_program_options
+target_link_libraries(SelkieServer PRIVATE EnTT::EnTT boost_core spdlog::spdlog enet_static msgpack-cxx) # boost_program_options
 
 set_property(TARGET SelkieServer PROPERTY INTERPROCEDURAL_OPTIMIZATION TRUE)

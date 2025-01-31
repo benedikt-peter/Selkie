@@ -10,9 +10,7 @@ int main() {
   selkie::EventsBuffer eventsBuffer{};
 
   while (true) {
-    server.processMessages<>()
+    server.processEvents(eventsBuffer);
   }
-  server.Run();
-
   return 0;
 }
