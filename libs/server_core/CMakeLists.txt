@@ -24,3 +24,4 @@ target_include_directories(SelkieServerCore PUBLIC include)
 
 target_link_libraries(SelkieServerCore Boost::geometry EnTT::EnTT spdlog::spdlog glm::glm-header-only)
 
+set_property(TARGET SelkieServerCore PROPERTY INTERPROCEDURAL_OPTIMIZATION TRUE)
