@@ -6,10 +6,11 @@
 
 namespace selkie {
 
-  template<typename TImpl, typename TMessage>
+  template<typename TImpl, typename TMessage, typename TMessageType>
   concept Deserializer =
-  Message<TMessage> && requires(TImpl &impl, TMessage message, std::span<const std::byte> buffer) {
-    { impl.template derialize<TMessage>(buffer) } -> std::same_as<TMessage>;
+  Message<TMessage, TMessageType> && MessageType<TMessageType> &&
+  requires(TImpl &impl, TMessage message, std::span<const std::byte> buffer) {
+    { impl.template deserialize<TMessage>(buffer) } -> std::same_as<TMessage>;
   };
 
 }

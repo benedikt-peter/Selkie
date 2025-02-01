@@ -11,33 +11,27 @@
 #include "serializer.h"
 
 namespace selkie {
-  class MessageReceiverBase : boost::noncopyable {
+  class IMessageReceiver : boost::noncopyable {
   public:
-    explicit MessageReceiverBase(MessageType messageType) : messageType_{messageType} {}
-
-    virtual ~MessageReceiverBase() = default;
-
-    [[nodiscard]]
-    MessageType getMessageType() const {
-      return messageType_;
-    }
+    virtual ~IMessageReceiver() = default;
 
     virtual void clear() = 0;
 
     virtual void push(std::span<const std::byte> buffer) = 0;
-
-  private:
-    MessageType messageType_;
   };
 
-  template<Message TMessage, Deserializer<TMessage> TDeserializer>
-  class MessageReceiver : public MessageReceiverBase {
+  template<MessageType TMessageType, Message<TMessageType> TMessage, Deserializer<TMessage, TMessageType> TDeserializer>
+  class MessageReceiver : public IMessageReceiver {
   public:
     explicit MessageReceiver(TDeserializer &&deserializer)
-        : MessageReceiverBase{TMessage::getMessageType()}, deserializer_{std::forward(deserializer)}, messages_{} {}
+        : deserializer_{std::move(deserializer)}, messages_{} {}
+
+    void clear() override {
+      messages_.clear();
+    }
 
     void push(std::span<const std::byte> buffer) override {
-      messages_.push_back(deserializer_.derialize(buffer));
+      messages_.push_back(deserializer_.template deserialize<TMessage>(buffer));
     }
 
     std::span<const TMessage> get() const {
@@ -51,27 +45,27 @@ namespace selkie {
 
   class EventsBuffer {
   public:
-    template<Message TMessage, Deserializer<TMessage> TDeserializer>
+    template<MessageType TMessageType, Message<TMessageType> TMessage, Deserializer<TMessage, TMessageType> TDeserializer>
     void registerMessageType(TDeserializer &&deserializer) {
-      const auto messageType = TMessage::getMessageType();
-      const auto requiredSize = messageType + 1;
+      const auto messageTypeIndex = static_cast<IntegralMessageType>(TMessage::getMessageType());
+      const auto requiredSize = messageTypeIndex + 1;
       if (messageQueues_.size() < requiredSize) {
         messageQueues_.resize(requiredSize);
       }
 
-      auto &queuePtr = messageQueues_[messageType];
+      auto &queuePtr = messageQueues_[messageTypeIndex];
       if (!queuePtr) {
-        queuePtr = std::make_unique<MessageReceiver<TMessage, TDeserializer>>(std::forward(deserializer));
+        queuePtr = std::make_unique<MessageReceiver<TMessageType, TMessage, TDeserializer>>(std::forward<TDeserializer>(deserializer));
       }
     }
 
-    void pushMessage(MessageType messageType, std::span<const std::byte> buffer) {
+    void pushMessage(IntegralMessageType messageType, std::span<const std::byte> buffer) {
       if (messageQueues_.size() <= messageType) {
         return;
       }
 
       auto &queuePtr = messageQueues_[messageType];
-      if (!queuePtr || queuePtr->getMessageType() != messageType) {
+      if (!queuePtr) {
         return;
       }
 
@@ -91,7 +85,7 @@ namespace selkie {
     }
 
   private:
-    std::vector<std::unique_ptr<MessageReceiverBase>> messageQueues_;
+    std::vector<std::unique_ptr<IMessageReceiver>> messageQueues_;
     std::vector<ConnectEvent> connectQueue_;
     std::vector<DisconnectEvent> disconnectQueue_;
     std::vector<TimeoutEvent> timeoutQueue_;

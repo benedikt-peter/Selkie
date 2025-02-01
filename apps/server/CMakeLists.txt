@@ -5,7 +5,8 @@ add_executable(SelkieServer src/main.cpp
         src/network/serializer.h
         src/network/eventsbuffer.h
         src/network/events.h
-        src/network/message.h)
+        src/network/message.h
+)
 
 target_link_libraries(SelkieServer PRIVATE EnTT::EnTT boost_core spdlog::spdlog enet_static msgpack-cxx) # boost_program_options
 

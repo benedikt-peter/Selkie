@@ -63,8 +63,9 @@ namespace selkie {
                        event.channelID);
 
           const auto data = std::span<const std::byte>{reinterpret_cast<std::byte*>(event.packet->data), event.packet->dataLength};
-          const auto messageType = static_cast<MessageType>(data[0]);
-          const auto payload = data.subspan(1);
+          const auto messageType = static_cast<IntegralMessageType>(data[0]);
+          static_assert(sizeof(messageType) == 1);
+          const auto payload = data.subspan(MessageTypeSize);
 
           collector.pushMessage(messageType, data);
 
