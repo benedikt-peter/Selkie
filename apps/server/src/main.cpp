@@ -29,10 +29,12 @@ int main() {
   selkie::ENetServer server{7777};
 
   selkie::EventsBuffer eventsBuffer{};
-  eventsBuffer.registerMessageType<ClientToServerMessageType, PingMessage>(selkie::MsgPackSerializer{});
+
+  selkie::MessageQueue messageQueue{};
+  messageQueue.registerMessageType<ClientToServerMessageType, PingMessage>(selkie::MsgPackSerializer{});
 
   while (true) {
-    server.processEvents(eventsBuffer);
+    server.processEvents(eventsBuffer, messageQueue);
   }
   return 0;
 }

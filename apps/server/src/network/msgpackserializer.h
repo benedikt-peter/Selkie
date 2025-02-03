@@ -8,7 +8,7 @@ namespace selkie {
   class MsgPackSerializer {
   public:
     template<typename TMessage>
-    std::size_t deserialize(std::span<std::byte> buffer, const TMessage& message) {
+    std::size_t serialize(TMessage message, std::span<std::byte> buffer) {
       msgpack::pack(m_buffer, message);
 
       if (m_buffer.size() > buffer.size()) {

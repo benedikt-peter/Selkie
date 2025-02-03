@@ -11,60 +11,28 @@
 #include "serializer.h"
 
 namespace selkie {
-  class IMessageReceiver : boost::noncopyable {
+  class MessageQueue {
   public:
-    virtual ~IMessageReceiver() = default;
-
-    virtual void clear() = 0;
-
-    virtual void push(std::span<const std::byte> buffer) = 0;
-  };
-
-  template<MessageType TMessageType, Message<TMessageType> TMessage, Deserializer<TMessage, TMessageType> TDeserializer>
-  class MessageReceiver : public IMessageReceiver {
-  public:
-    explicit MessageReceiver(TDeserializer &&deserializer)
-        : deserializer_{std::move(deserializer)}, messages_{} {}
-
-    void clear() override {
-      messages_.clear();
-    }
-
-    void push(std::span<const std::byte> buffer) override {
-      messages_.push_back(deserializer_.template deserialize<TMessage>(buffer));
-    }
-
-    std::span<const TMessage> get() const {
-      return messages_;
-    }
-
-  private:
-    TDeserializer deserializer_;
-    std::vector<TMessage> messages_;
-  };
-
-  class EventsBuffer {
-  public:
-    template<MessageType TMessageType, Message<TMessageType> TMessage, Deserializer<TMessage, TMessageType> TDeserializer>
-    void registerMessageType(TDeserializer &&deserializer) {
+    template<MessageType TMessageType, Message<TMessageType> TMessage, Serializer<TMessage, TMessageType> TSerializer>
+    void registerMessageType(TSerializer &&serializer) {
       const auto messageTypeIndex = static_cast<IntegralMessageType>(TMessage::getMessageType());
       const auto requiredSize = messageTypeIndex + 1;
-      if (messageQueues_.size() < requiredSize) {
-        messageQueues_.resize(requiredSize);
+      if (messageStores_.size() < requiredSize) {
+        messageStores_.resize(requiredSize);
       }
 
-      auto &queuePtr = messageQueues_[messageTypeIndex];
+      auto &queuePtr = messageStores_[messageTypeIndex];
       if (!queuePtr) {
-        queuePtr = std::make_unique<MessageReceiver<TMessageType, TMessage, TDeserializer>>(std::forward<TDeserializer>(deserializer));
+        queuePtr = std::make_unique<MessageStore < TMessageType, TMessage, TSerializer>>(std::forward<TSerializer>(serializer));
       }
     }
 
     void pushMessage(IntegralMessageType messageType, std::span<const std::byte> buffer) {
-      if (messageQueues_.size() <= messageType) {
+      if (messageStores_.size() <= messageType) {
         return;
       }
 
-      auto &queuePtr = messageQueues_[messageType];
+      auto &queuePtr = messageStores_[messageType];
       if (!queuePtr) {
         return;
       }
@@ -72,22 +40,43 @@ namespace selkie {
       queuePtr->push(buffer);
     }
 
-    void pushConnectEvent(ConnectEvent event) {
-      connectQueue_.push_back(event);
-    }
-
-    void pushDisconnectEvent(DisconnectEvent event) {
-      disconnectQueue_.push_back(event);
-    }
-
-    void pushTimeoutEvent(TimeoutEvent event) {
-      timeoutQueue_.push_back(event);
-    }
-
   private:
-    std::vector<std::unique_ptr<IMessageReceiver>> messageQueues_;
-    std::vector<ConnectEvent> connectQueue_;
-    std::vector<DisconnectEvent> disconnectQueue_;
-    std::vector<TimeoutEvent> timeoutQueue_;
+    class IMessageStore : boost::noncopyable {
+    public:
+      virtual ~IMessageStore() = default;
+
+      virtual void clear() = 0;
+
+      virtual void push(std::span<const std::byte> buffer) = 0;
+    };
+
+    template<MessageType TMessageType, Message<TMessageType> TMessage, Serializer<TMessage, TMessageType> TSerializer>
+    class MessageStore : public IMessageStore {
+    public:
+      explicit MessageStore(TSerializer &&serializer)
+          : serializer_{std::move(serializer)}, messages_{} {}
+
+      void clear() override {
+        messages_.clear();
+      }
+
+      void push(TMessage message) {
+        messages_.push_back(message);
+      }
+
+      void push(std::span<const std::byte> buffer) override {
+        messages_.push_back(serializer_.template deserialize<TMessage>(buffer));
+      }
+
+      std::span<const TMessage> get() const {
+        return messages_;
+      }
+
+    private:
+      TSerializer serializer_;
+      std::vector<TMessage> messages_;
+    };
+
+    std::vector<std::unique_ptr<IMessageStore>> messageStores_;
   };
 }

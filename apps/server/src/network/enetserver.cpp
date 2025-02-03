@@ -35,7 +35,7 @@ namespace selkie {
 
   ENetServer &ENetServer::operator=(ENetServer &&) noexcept = default;
 
-  void ENetServer::processEvents(EventsBuffer &collector) {
+  void ENetServer::processEvents(EventsBuffer &eventsCollector, MessageQueue &messageCollector) {
     if (!m_server) {
       return;
     }
@@ -50,7 +50,7 @@ namespace selkie {
           spdlog::info("A new client connected from {}:{}.", buffer, event.peer->address.port);
           event.peer->data = (void *) "Client information";
 
-          collector.pushConnectEvent({});
+          eventsCollector.pushConnectEvent({});
 
           break;
         }
@@ -67,7 +67,7 @@ namespace selkie {
           static_assert(sizeof(messageType) == 1);
           const auto payload = data.subspan(MessageTypeSize);
 
-          collector.pushMessage(messageType, data);
+          messageCollector.pushMessage(messageType, data);
 
           /* Clean up the packet now that we're done using it. */
           enet_packet_destroy(event.packet);
@@ -79,7 +79,7 @@ namespace selkie {
           /* Reset the peer's client information. */
           event.peer->data = nullptr;
 
-          collector.pushDisconnectEvent({});
+          eventsCollector.pushDisconnectEvent({});
 
           break;
         }
@@ -89,7 +89,7 @@ namespace selkie {
           /* Reset the peer's client information. */
           event.peer->data = nullptr;
 
-          collector.pushTimeoutEvent({});
+          eventsCollector.pushTimeoutEvent({});
 
           break;
         }
