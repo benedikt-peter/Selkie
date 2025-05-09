@@ -3,7 +3,7 @@
 #include <memory>
 #include <vector>
 
-#include "eventsbuffer.h"
+#include "../../../protocol/include/messagequeue.h"
 
 struct _ENetHost; // NOLINT(*-reserved-identifier)
 

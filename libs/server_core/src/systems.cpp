@@ -10,10 +10,10 @@ namespace selkie
   {
     Systems default_systems{};
 
-    default_systems.Emplace<SearchTreeUpdateSystem>(world);
-    default_systems.Emplace<MinionSpawnerSystem>(world);
-    default_systems.Emplace<LaneMovementSystem>(world);
-    default_systems.Emplace<TargetingSystem>(world);
+    default_systems.emplace<SearchTreeUpdateSystem>(world);
+    default_systems.emplace<MinionSpawnerSystem>(world);
+    default_systems.emplace<LaneMovementSystem>(world);
+    default_systems.emplace<TargetingSystem>(world);
 
     return default_systems;
   }

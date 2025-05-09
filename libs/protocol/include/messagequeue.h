@@ -4,9 +4,8 @@
 #include <span>
 #include <vector>
 
-#include <boost/core/noncopyable.hpp>
+#include "boost/core/noncopyable.hpp"
 
-#include "events.h"
 #include "message.h"
 #include "serializer.h"
 

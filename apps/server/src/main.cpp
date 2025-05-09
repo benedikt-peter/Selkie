@@ -1,6 +1,6 @@
-#include "network/enetserver.h"
+#include "../../../libs/server_core/src/network/enetserver.h"
 #include "network/msgpackserializer.h"
-#include "network/eventsbuffer.h"
+#include "../../../libs/protocol/include/messagequeue.h"
 #include "network/message.h"
 
 using namespace selkie;

@@ -19,7 +19,7 @@ namespace selkie
       }
 
       template<typename TSystem, typename ... TArgs>
-      void Emplace(TArgs&& ... args)
+      void emplace(TArgs&& ... args)
       {
         m_systems.emplace_back(std::make_unique<TSystem>(args...));
       }
